@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gas Flux Tool</title>
+  <style>
+    body { background: #f0f2f5; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    .header { background: #4a90e2; color: white; padding: 20px; text-align: center; }
+    .container { max-width: 700px; margin: 30px auto; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 20px; }
+    fieldset { border: 1px solid #ccc; margin-bottom: 15px; padding: 15px; border-radius: 4px; }
+    legend { font-weight: bold; padding: 0 8px; }
+    label { display: block; margin: 10px 0 5px; }
+    input, select { width: 100%; padding: 8px; margin-bottom: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+    button { width: 100%; padding: 12px; background: #4a90e2; color: white; border: none; font-size: 16px; border-radius: 4px; cursor: pointer; }
+    button:hover { background: #357ab8; }
+    .error { color: red; margin-bottom: 15px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Gas Flux Calculator</h1>
+    <p>Upload your data and configure parameters below</p>
+  </div>
+  <div class="container">
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data">
+      <fieldset>
+        <legend>Data & File</legend>
+        <label>Data File (.dat/.csv/.xlsx):</label>
+        <input type="file" name="datafile" required />
+      </fieldset>
+      <fieldset>
+        <legend>Chamber Settings</legend>
+        <label>Volume (L):</label><input type="number" name="vol" value="10" step="0.1" />
+        <label>Area (m²):</label><input type="number" name="area" value="0.1" step="0.01" />
+        <label>Temperature (°C):</label><input type="number" name="temp" value="25" step="0.1" />
+        <label>Pressure (Pa):</label><input type="number" name="pressure" value="101325" />
+      </fieldset>
+      <fieldset>
+        <legend>Analysis Options</legend>
+        <label>Skip Initial Seconds:</label><input type="number" name="skip" value="0" />
+        <label>Window Seconds (optional):</label><input type="number" name="window" />
+        <label>Time Column:</label><input type="text" name="time_col" value="MCGS_Time" />
+        <label>Channel Column:</label><input type="text" name="channel_col" value="GresNum" />
+        <label>Concentration Column:</label><input type="text" name="conc_col" value="CO2" />
+        <label>Time Intervals (s):</label>
+        <select name="intervals" multiple>
+          <option value="5" selected>5</option>
+          <option value="30">30</option>
+          <option value="60">60</option>
+          <option value="300">300</option>
+          <option value="3600">3600</option>
+        </select>
+      </fieldset>
+      <fieldset>
+        <legend>Calibration Settings</legend>
+        <label>High Std PPM:</label><input type="number" name="std_high" value="400" />
+        <label>Low Std PPM:</label><input type="number" name="std_low" value="50" />
+        <label>High Std Channel ID:</label><input type="number" name="ch_high" value="1" />
+        <label>Low Std Channel ID:</label><input type="number" name="ch_low" value="2" />
+        <label>Sample Channel ID:</label><input type="number" name="ch_sample" value="5" />
+      </fieldset>
+      <button type="submit">Run Analysis</button>
+    </form>
+  </div>
+</body>
+</html>

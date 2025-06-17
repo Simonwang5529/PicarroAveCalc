@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Analysis Result</title>
+  <style>
+    body { background: white; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    .header { background: #4a90e2; color: white; padding: 20px; text-align: center; }
+    .container { max-width: 800px; margin: 40px auto; background: white; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); padding: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-left: auto; margin-right: auto; display: block; }
+    img {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    pre { background: #eee; padding: 15px; border-radius: 4px; }
+    a.button { display: inline-block; margin: 15px 10px 0 0; padding: 10px 20px; background: #4a90e2; color: white; text-decoration: none; border-radius: 4px; }
+    a.button:hover { background: #357ab8; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Analysis Result</h1>
+  </div>
+  <div class="container">
+    <h2>Flux Calculation</h2>
+    <pre>{{ flux|safe }}</pre>
+    <h2>Flux Plot</h2>
+    <img src="/static/plot.png" alt="Concentration Linear Fit Plot" style="max-width:80%;border-radius:8px; margin-left:auto; margin-right:auto; display:block;">
+    <h2>Calibrated Data</h2>
+    {{ table_html|safe }}
+    <a class="button" href="/download">Download Full CSV</a>
+    <a class="button" href="/">New Analysis</a>
+  </div>
+</body>
+</html>
